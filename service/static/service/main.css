@@ -1,0 +1,18 @@
+.app{
+	margin-top:5%;
+	padding: 3%;S
+}
+
+.input-field{
+	font-size: 20px;
+	height: 60px;
+	margin-bottom: 3%;
+}
+
+.btn-primary{
+	font-size: 25px;
+	position: relative;
+	left: 50%;
+	transform: translate(-50%, 0);
+}
+

@@ -1,0 +1,28 @@
+.info{
+	margin-top: 7%;
+}
+
+.name{
+	font-size: 25px;
+}
+
+.phone{
+	font-size: 20px;
+}
+
+.apps{
+	margin-top: 7%;
+}
+
+.header{
+	font-weight: bold;
+}
+
+.app{
+	margin-bottom: 1%;
+	background-color: #d1cbcb;
+}
+
+.cell{
+	border-right: 1px solid #b3afaf;
+}

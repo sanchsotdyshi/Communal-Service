@@ -1,0 +1,52 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'service/worker_page.css' %}">
+
+    <title>Hello, world!</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-6">
+          <div class="info">
+            <p class="name">Имя: {{ worker.first_name }}</p>
+            <p class="name">Фамилия: {{ worker.second_name }}</p>
+            <p class="phone">Номер телефона: {{worker.phone_number}}</p>
+          </div>
+          <div class="apps">
+              <div class="row header app">
+                <div class="col-md-3 cell"><p>Имя</p></div>
+                <div class="col-md-3 cell"><p>Номер телефона</p></div>
+                <div class="col-md-2 cell"><p>Номер Дома</p></div>
+                <div class="col-md-4"><p>Проблема</p></div>
+              </div>
+              {% for app in aplications %}
+              <div class="row app">
+                <div class="col-md-3 cell"><p>{{app.name}}</p></div>
+                <div class="col-md-3 cell"><p>{{app.phone_number}}</p></div>
+                <div class="col-md-2 cell"><p>{{app.house_number}}</p></div>
+                <div class="col-md-4"><p>{{app.problem}}</p></div>
+              </div>
+              {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+
+   
+  </body>
+</html>

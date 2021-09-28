@@ -1,0 +1,16 @@
+.form{
+	margin-top: 10%;
+}
+
+.input-field{
+	font-size: 25px;
+	height: 60px;
+	margin-bottom: 3%;
+}
+
+.btn-primary{
+	font-size: 25px;
+	position: relative;
+	left: 50%;
+	transform: translate(-50%, 0);
+}

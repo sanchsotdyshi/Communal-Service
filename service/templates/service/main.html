@@ -1,0 +1,47 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'service/main.css' %}">
+
+    <title>Hello, world!</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-6">
+          <div class="app">
+            <form action="{% url 'service:create_application' %}" method="post">
+              {% csrf_token %}
+              <input class="form-control input-field" type="text" placeholder="Ваше имя" aria-label="default input example" name='name'>
+              <input class="form-control input-field" type="text" placeholder="Номер телефона" aria-label="default input example" name='phone number'>
+              <select class="form-select form-select-sm input-field" aria-label=".form-select-sm example" name='house number' >
+                <option selected>Номер дома</option>
+                {% for house in houses %}
+                <option value="{{house.id}}">{{house.number}}</option>
+                {% endfor %}
+              </select>
+              <textarea class="form-control input-field" placeholder="Опишите свою проблему" id="floatingTextarea" name='problem'></textarea>
+              <button type="submit" class="btn btn-primary">Отправить</button>
+            </form>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+
+   
+  </body>
+</html>
