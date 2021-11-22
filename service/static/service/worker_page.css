@@ -23,6 +23,10 @@
 	background-color: #d1cbcb;
 }
 
+.close{
+	text-align: center
+}
+
 .cell{
 	border-right: 1px solid #b3afaf;
 }

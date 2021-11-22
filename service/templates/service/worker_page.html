@@ -36,7 +36,8 @@
                 <div class="col-md-3 cell"><p>{{app.name}}</p></div>
                 <div class="col-md-3 cell"><p>{{app.phone_number}}</p></div>
                 <div class="col-md-2 cell"><p>{{app.house_number}}</p></div>
-                <div class="col-md-4"><p>{{app.problem}}</p></div>
+                <div class="col-md-3"><p>{{app.problem}}</p></div>
+                <div class="col-md-1 p-0 m-0 close"><a href="{% url 'service:complete_app' app.id worker.id %}"><p>Х</p></a></div>
               </div>
               {% endfor %}
           </div>

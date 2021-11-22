@@ -3,7 +3,26 @@ from django.template import loader
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from service.models import House, Aplication, Worker
-# Create your views here.
+
+def error(request, code):
+	"""Error handling page"""
+
+	template = loader.get_template('service/error.html')
+	if code == 5054:
+		context = {
+			'text': 'Неправильный логин или пароль!',
+		}
+	elif code == 5088:
+		context = {
+			'text': 'Все поля должны быть заполнены!',
+		}
+	else:
+		context = {
+			'text': 'Неизвестная ошибка!'
+		}
+		
+	return HttpResponse(template.render(context, request))
+
 
 def main(request):
 	"""loads main page"""
@@ -18,6 +37,8 @@ def main(request):
 def create_application(request):
 	"""Create new application and
 	 redirect to main page"""
+	if request.POST['house number'] == 'Номер дома' or request.POST['name'] == '' or request.POST['phone number'] == '' or request.POST['problem'] == '':
+	   return HttpResponseRedirect(reverse('service:error', args=(5088,)))
 
 	house = House.objects.get(id=request.POST['house number'])
 	worker = house.worker
@@ -35,29 +56,36 @@ def login(request):
 	template = loader.get_template('service/login.html')
 	return HttpResponse(template.render({}, request))
 
-def worker_page(request):
+def worker_page(request, mode=0, id=0):
 	"""loads the worker page"""
-
-	#Tries to find a worker with the given username and password
-	try:
-		worker = Worker.objects.get(login=request.POST['login'],
+	"""if mode 1 we find worker by id"""
+	if mode:
+		worker = Worker.objects.get(id = id)
+	else:
+		#Tries to find a worker with the given username and password
+		try:
+			worker = Worker.objects.get(login=request.POST['login'],
 									password=request.POST['password'])
 
-	#if gets an error redirects to the error page
-	except Worker.DoesNotExist:
-		template = loader.get_template('service/error.html')
-		context = {
-			'text': 'Неправильный логин или пароль!',
-		}
-	#else load page
-	else:
-		aplications = Aplication.objects.filter(worker=worker)
-		template = loader.get_template('service/worker_page.html')
-		context = {
-			'worker': worker,
-			'aplications': aplications,
-		}
+		#if gets an error redirects to the error page
+		except Worker.DoesNotExist:
+			return HttpResponseRedirect(reverse('service:error', args=(5054,)))
 		
+		
+	aplications = Aplication.objects.filter(worker=worker, completed=0)
+	template = loader.get_template('service/worker_page.html')
+	context = {
+		'worker': worker,
+		'aplications': aplications,
+	}
+
 	return HttpResponse(template.render(context, request))
-	
+
+def complete_app(request, id, worker_id):
+	"""Complete the application"""
+
+	app = Aplication.objects.get(id=id)
+	app.completed = 1
+	app.save()
+	return HttpResponseRedirect(reverse('service:worker_page', args=(1, worker_id)))
 		
